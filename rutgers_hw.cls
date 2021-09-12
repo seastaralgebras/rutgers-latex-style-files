@@ -88,7 +88,7 @@
 \let\@institution\@empty
 
 \newcommand{\PrintAssignment}{% Printing the homework name and title on separate lines, first checking whether \@assignment and \@title are empty
-    {\large\bfseries\ifeq{\@assignment}{\@empty}{Homework}{\@assignment}}
+    {\large\bfseries\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
     {\large\ifeq{\@title}{\@empty}{}{\\\@title}}
     \vspace{.5cm}\\%
 }
