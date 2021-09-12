@@ -1,0 +1,189 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{rutgers}[2021/09/12 Rutgers LaTeX package]
+
+% general commands
+
+\newcommand{\bb}[1]{\mathbb{#1}}
+\newcommand{\bba}{\bb A}
+\newcommand{\bbb}{\bb B}
+\newcommand{\bbc}{\bb C}
+\newcommand{\bbd}{\bb D}
+\newcommand{\bbe}{\bb E}
+\newcommand{\bbf}{\bb F}
+\newcommand{\bbg}{\bb G}
+\newcommand{\bbh}{\bb H}
+\newcommand{\bbi}{\bb I}
+\newcommand{\bbj}{\bb J}
+\newcommand{\bbk}{\bb K}
+\newcommand{\bbl}{\bb L}
+\newcommand{\bbm}{\bb M}
+\newcommand{\bbn}{\bb N}
+\newcommand{\bbo}{\bb O}
+\newcommand{\bbp}{\bb P}
+\newcommand{\bbq}{\bb Q}
+\newcommand{\bbr}{\bb R}
+\newcommand{\bbs}{\bb S}
+\newcommand{\bbt}{\bb T}
+\newcommand{\bbu}{\bb U}
+\newcommand{\bbv}{\bb V}
+\newcommand{\bbw}{\bb W}
+\newcommand{\bbx}{\bb X}
+\newcommand{\bby}{\bb Y}
+\newcommand{\bbz}{\bb Z}
+
+\newcommand{\ccal}[1]{\mathcal{#1}}
+\newcommand{\cla}{\ccal A}
+\newcommand{\clb}{\ccal B}
+\newcommand{\clc}{\ccal C}
+\newcommand{\cld}{\ccal D}
+\newcommand{\cle}{\ccal E}
+\newcommand{\clf}{\ccal F}
+\newcommand{\clg}{\ccal G}
+\newcommand{\clh}{\ccal H}
+\newcommand{\cli}{\ccal I}
+\newcommand{\clj}{\ccal J}
+\newcommand{\clk}{\ccal K}
+\newcommand{\cll}{\ccal L}
+\newcommand{\clm}{\ccal M}
+\newcommand{\cln}{\ccal N}
+\newcommand{\clo}{\ccal O}
+\newcommand{\clp}{\ccal P}
+\newcommand{\clq}{\ccal Q}
+\newcommand{\clr}{\ccal R}
+\newcommand{\cls}{\ccal S}
+\newcommand{\clt}{\ccal T}
+\newcommand{\clu}{\ccal U}
+\newcommand{\clv}{\ccal V}
+\newcommand{\clw}{\ccal W}
+\newcommand{\clx}{\ccal X}
+\newcommand{\cly}{\ccal Y}
+\newcommand{\clz}{\ccal Z}
+
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\inprod}{\langle}{\rangle}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiter{\paren}{()}{)}
+\DeclarePairedDelimiter{\cl}{[]}{]}
+\DeclarePairedDelimiter{\clop}{[]}{)}
+\DeclarePairedDelimiter{\opcl}{()}{]}
+
+
+\renewcommand{\vec}[1]{\text{\textbf{#1}}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\cnj}[1]{\overline{#1}}
+\newcommand{\sth}{\colon}
+\newcommand{\cmpl}[1]{#1^\mathrm{C}}
+\newcommand{\prm}[1]{#1^\prime}
+\newcommand{\dprm}[1]{#1^{\prime\prime}}
+\newcommand{\card}{\operatorname{card}}
+\newcommand{\continuum}{\mathfrak{c}}
+
+\newcommand{\id}{\operatorname{Id}}
+
+
+% algebra commands
+
+\newcommand{\vspan}[1]{\operatorname{span}(#1)}
+\newcommand{\image}{\operatorname{im}}
+\renewcommand{\ker}{\operatorname{ker}}
+\newcommand{\gen}[1]{\langle #1 \rangle}
+\newcommand{\lcm}[1]{\operatorname{lcm}[#1]}
+\renewcommand{\gcd}[1]{\operatorname{gcd}(#1)}
+\newcommand{\aut}{\operatorname{aut}}
+\newcommand{\End}{\operatorname{end}}
+\newcommand{\ann}{\operatorname{ann}}
+\newcommand{\tor}{\operatorname{tor}}
+\renewcommand{\hom}{\operatorname{Hom}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\pmat}[1]{\begin{pmatrix} #1 \end{pmatrix}}
+\newcommand{\vmat}[1]{\begin{vmatrix} #1 \end{vmatrix}}
+
+
+% topology/geometry commands
+
+\newcommand{\closure}{\operatorname{clos}}
+\newcommand{\interior}{\operatorname{int}}
+\newcommand{\bd}{\partial}
+\newcommand{\smooth}{C^\infty}
+
+
+\newcommand{\rp}{\bbr\bbp}
+
+\newcommand{\diff}[2]{\de{#1}_{#2}}
+
+\newcommand{\pf}[1]{#1_\star}
+
+\newcommand{\tfield}[2]{\mathcal{T}^{#1}_{#2}}
+\newcommand{\covd}[1]{\frac{\mathrm{D}#1}{\mathrm{d}t}}
+\newcommand{\covde}{\frac{\mathrm{D}}{\mathrm{d}t}}
+
+\newcommand{\cirg}{\mathring{g}}
+
+\newcommand{\bee}{B}
+
+\newcommand{\base}[1]{B(#1)}
+\newcommand{\bundle}[1]{E(#1)}
+
+
+
+%analysis commands
+
+\newcommand{\mus}{\mu^\ast}
+\newcommand{\mup}{\mu_0}
+\newcommand{\mut}{\mu_\ast}
+\newcommand{\leb}{\mathcal{L}}
+\newcommand{\de}[1]{\mathrm{d}#1}
+\newcommand{\dmu}{\de{\mu}}
+\newcommand{\dnu}{\de{\nu}}
+\newcommand{\nup}{\nu^+}
+\newcommand{\num}{\nu^-}
+\newcommand{\dnup}{\de{\nup}}
+\newcommand{\dnum}{\de{\num}}
+\newcommand{\dmn}{\de{(\mu \times \nu)}}
+\newcommand{\dmm}{\de{(\mu \times m)}}
+\newcommand{\dm}{\de{m}}
+\newcommand{\ds}{\de{s}}
+\newcommand{\dw}{\de{w}}
+\newcommand{\dcw}{\de{\cnj{w}}}
+\newcommand{\dx}{\de{x}}
+\newcommand{\dy}{\de{y}}
+\newcommand{\dz}{\de{z}}
+\newcommand{\dcz}{\de{\cnj{z}}}
+\newcommand{\dt}{\de{t}}
+\newcommand{\dlambda}{\de{\lambda}}
+\newcommand{\borelr}{\mathcal{B}_\rr}
+\newcommand{\borelc}{\mathcal{B}_\cc}
+\newcommand{\nabs}{\abs{\nu}}
+\newcommand{\dnabs}{\de{\nabs}}
+\newcommand{\mabs}{\abs{\mu}}
+\newcommand{\drho}{\de{\rho}}
+\newcommand{\ccc}{\mathcal{C}}
+\newcommand{\Hs}{H^\ast}
+\newcommand{\nur}{\nu_r}
+\newcommand{\nui}{\nu_i}
+\newcommand{\dnur}{\de{\nur}}
+\newcommand{\dnui}{\de{\nui}}
+\newcommand{\danur}{\de{\abs{\nur}}}
+\newcommand{\danui}{\de{\abs{\nui}}}
+
+\newcommand{\dde}[2]{\frac{\mathrm{d} #1}{\mathrm{d} #2}}
+\newcommand{\ddee}[1]{\frac{\mathrm{d}}{\mathrm{d} #1}}
+\newcommand{\pd}[2]{\frac{\partial#1}{\partial#2}}
+\newcommand{\pdd}[1]{\frac{\partial}{\partial#1}}
+
+\newcommand{\cw}{\cnj{w}}
+\newcommand{\cz}{\cnj{z}}
+
+
+\newcommand{\pnorm}[2]{\norm{#1}_{#2}}
+\newcommand{\limd}[2]{\lim\limits_{#1 \to #2}}
+\newcommand{\liminfd}[2]{\liminf\limits_{#1 \to #2}}
+\newcommand{\limsupd}[2]{\limsup\limits_{#1 \to #2}}
+
+\newcommand{\maxm}{\operatorname{max}}
+\newcommand{\str}[1]{#1^{\star}}
+\newcommand{\dstr}[1]{#1^{\star\star}}
+\newcommand{\weakto}{\rightharpoonup}
+\newcommand{\starto}{\overset{\star}{\rightharpoonup}}
