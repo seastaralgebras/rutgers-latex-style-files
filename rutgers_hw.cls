@@ -25,9 +25,9 @@
 \renewcommand*{\author}[1]{\gdef\@author{#1}%
 }
 \renewcommand*{\@author}{Firstname Lastname}
-\newcommand*{\assignmentnum}[1]{\gdef\@assignmentnum{Assignment {#1}}%
+\newcommand*{\assignment}[1]{\gdef\@assignment{#1}%
 }
-\newcommand*{\@assignmentnum}{}
+\newcommand*{\@assignment}{}
 \newcommand*{\course}[1]{\gdef\@course{#1}%
 }
 \newcommand*{\@course}{Course Name}
@@ -43,7 +43,7 @@
 
 \renewcommand*{\maketitle}{%
 	{\centering
-    {\Large\@assignmentnum\unskip\strut\par}
+    {\Large\@assignment\unskip\strut\par}
 	}
     \vspace{.5cm}
 }
