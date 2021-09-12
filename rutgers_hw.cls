@@ -29,6 +29,37 @@
 
 % PAGE FORMATTING
 
+% \pagestyle{fancy}
+% \setlength{\headheight}{14pt}
+% \fancyhf{}
+%
+% \if@twoside
+% 	\ifodd\value{page}\relax
+% 		\lhead{\@date}
+% 		\chead{\@cousesection}
+% 		\rhead{\@author}
+% 		\lfoot{\@institution}
+% 		\cfoot{Page \thepage}
+% 		\rfoot{\@instructor}
+% 	\else
+% 		\lhead{\@author}
+% 		\chead{\@cousesection}
+% 		\rhead{\@date}
+% 		\lfoot{\@instructor}
+% 		\cfoot{Page \thepage}
+% 		\rfoot{\@institution}
+% 	\fi
+% \else
+% 	\lhead{\@author}
+% 	\chead{\@cousesection}
+% 	\rhead{\@date}
+% 	\lfoot{\@instructor}
+% 	\cfoot{Page \thepage}
+% 	\rfoot{\@institution}
+% \fi
+
+
+
 \if@twoside % For two-sided documents, the header and footer swap sides every other page
     \newcommand{\headeroddeven}{%
     	\ifodd\value{page}\relax% On odd pages, it's "Assignment Author"
@@ -52,6 +83,7 @@
 \fi
 
 
+
 \def\ps@standard{% Defines the page style with the above header and footer
     \def\@oddhead{\headeroddeven}%
 	\def\@evenhead{\@oddhead}%
@@ -60,6 +92,7 @@
 	\let\@mkboth\markboth%
 }
 \AtBeginDocument{\pagestyle{standard}}
+
 
 
 
@@ -83,7 +116,7 @@
 \let\@title\@empty
 \let\@author\@empty
 \let\@course\@empty
-\let\@sectionno\@empty
+\let\@sectionnum\@empty
 \let\@instructor\@empty
 \let\@institution\@empty
 
@@ -100,12 +133,12 @@
         \ifeq{\@course}{\@empty}{\ifeq{\@instructor}{\@empty}{\@author}{\trueprintauthor}}{\trueprintauthor}\\% Basically, if the author is the only bit of info defined, we don't ouput "Name: Author", but just "Author".  If either the course or instructor is defined, we output "Name: Author", as usual.
     }
 }
-\newcommand{\PrintCourse}{% Outputting "Course: \@course §\@sectionno" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionno"
+\newcommand{\PrintCourse}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
 	\ifeq{\@course}{\@empty}{% \@course isn't defined
-	    \ifeq{\@sectionno}{\@empty}{% \@course and \@sectionno aren't defined
-	    }{Section: & \@sectionno\\}{}%
+	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
+	    }{Section: & \@sectionnum\\}{}%
 	}{% \@course is defined
-	    Course: & \@course\ifeq{\@sectionno}{\@empty}{}{\ \S\@sectionno}\\}
+	    Course: & \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}\\}
 }
 \newcommand{\PrintInstructor}{%
     \ifeq{\@instructor}{\@empty}{}{Instructor: & \@instructor\\}
@@ -134,6 +167,12 @@
         \doublespacing
     \fi
 }
+
+% \renewcommand{\maketitle}{
+% 	\centering {
+% 		\PrintAssignment
+% 	}
+% }
 
 
 % EXERCISE/PROOF
