@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{rutgers_hw}[2021/09/12 Rutgers Homework LaTeX class]
+\ProvidesClass{rutgers_hw}[2021/09/13 Rutgers Homework LaTeX class]
 
 \newif\if@doublespaced \@doublespacedfalse % Default of single spaced documents.  To load the package setspace later, we introduce this conditional and have the option set the conditional to true.
 \DeclareOption{doublespaced}{\@doublespacedtrue}
