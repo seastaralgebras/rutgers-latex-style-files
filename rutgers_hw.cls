@@ -32,23 +32,14 @@
 \pagestyle{fancy}
 \setlength{\headheight}{14pt}
 \fancyhf{}
-\fancyhead[RO,LE]{\@author}
-\fancyhead[C]{\@course \ \S\@sectionnum}
-\fancyhead[LO,RE]{\@date}
-\fancyfoot[RO,LE]{\@instructor}
-\fancyfoot[C]{Page \ \thepage}
-\fancyfoot[LO,RE]{\@institution}
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0.4pt}
-
 
 \if@twoside
-	\fancyhead[RO,LE]{\@author}
+	\fancyhead[RE,LO]{\@author}
 	\fancyhead[C]{\PrintCourseHead}
-	\fancyhead[LO,RE]{\@date}
-	\fancyfoot[RO,LE]{\@instructor}
+	\fancyhead[LE,RO]{\@date}
+	\fancyfoot[RE,LO]{\@instructor}
 	\fancyfoot[C]{Page \thepage}
-	\fancyfoot[LO,RE]{\@institution}
+	\fancyfoot[LE,RO]{\@institution}
 \else
 	\fancyhead[L]{\@author}
 	\fancyhead[C]{\PrintCourseHead}
@@ -57,6 +48,8 @@
 	\fancyfoot[C]{Page \thepage}
 	\fancyfoot[R]{\@institution}
 \fi
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
 
 
 
