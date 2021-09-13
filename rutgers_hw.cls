@@ -29,69 +29,34 @@
 
 % PAGE FORMATTING
 
-% \pagestyle{fancy}
-% \setlength{\headheight}{14pt}
-% \fancyhf{}
-%
-% \if@twoside
-% 	\ifodd\value{page}\relax
-% 		\lhead{\@date}
-% 		\chead{\@cousesection}
-% 		\rhead{\@author}
-% 		\lfoot{\@institution}
-% 		\cfoot{Page \thepage}
-% 		\rfoot{\@instructor}
-% 	\else
-% 		\lhead{\@author}
-% 		\chead{\@cousesection}
-% 		\rhead{\@date}
-% 		\lfoot{\@instructor}
-% 		\cfoot{Page \thepage}
-% 		\rfoot{\@institution}
-% 	\fi
-% \else
-% 	\lhead{\@author}
-% 	\chead{\@cousesection}
-% 	\rhead{\@date}
-% 	\lfoot{\@instructor}
-% 	\cfoot{Page \thepage}
-% 	\rfoot{\@institution}
-% \fi
+\pagestyle{fancy}
+\setlength{\headheight}{14pt}
+\fancyhf{}
+\fancyhead[RO,LE]{\@author}
+\fancyhead[C]{\@course \ \S\@sectionnum}
+\fancyhead[LO,RE]{\@date}
+\fancyfoot[RO,LE]{\@instructor}
+\fancyfoot[C]{Page \ \thepage}
+\fancyfoot[LO,RE]{\@institution}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
 
 
-
-\if@twoside % For two-sided documents, the header and footer swap sides every other page
-    \newcommand{\headeroddeven}{%
-    	\ifodd\value{page}\relax% On odd pages, it's "Assignment Author"
-    		\mdseries\normalsize\@assignment{}\hfill\@author%
-    	\else% On even pages, it's "Author Assignment"
-    		\mdseries\normalsize\@author{}\hfill\@assignment%
-    	\fi%
-    }
-    \newcommand{\footeroddeven}{%
-    	\ifodd\value{page}\relax% On odd pages, the page number is on the right
-    		\hfill\normalfont\mdseries\thepage%
-    	\else% On even pages, the page number is on the left
-    		\normalfont\mdseries\thepage\hfill%
-    	\fi%
-    }
-\else % For one-sided documents, the header and footer don't depend on page
-    \newcommand{\headeroddeven}{%
-        \rmfamily\mdseries\normalsize\@assignment{}\hfill\@author%
-    }
-    \newcommand{\footeroddeven}{\rmfamily\mdseries\normalsize\hfill\thepage}
+\if@twoside
+	\fancyhead[RO,LE]{\@author}
+	\fancyhead[C]{\PrintCourseHead}
+	\fancyhead[LO,RE]{\@date}
+	\fancyfoot[RO,LE]{\@instructor}
+	\fancyfoot[C]{Page \thepage}
+	\fancyfoot[LO,RE]{\@institution}
+\else
+	\fancyhead[L]{\@author}
+	\fancyhead[C]{\PrintCourseHead}
+	\fancyhead[R]{\@date}
+	\fancyfoot[L]{\@instructor}
+	\fancyfoot[C]{Page \thepage}
+	\fancyfoot[R]{\@institution}
 \fi
-
-
-
-\def\ps@standard{% Defines the page style with the above header and footer
-    \def\@oddhead{\headeroddeven}%
-	\def\@evenhead{\@oddhead}%
-	\def\@oddfoot{\footeroddeven}%
-	\def\@evenfoot{\@oddfoot}%
-	\let\@mkboth\markboth%
-}
-\AtBeginDocument{\pagestyle{standard}}
 
 
 
@@ -121,9 +86,9 @@
 \let\@institution\@empty
 
 \newcommand{\PrintAssignment}{% Printing the homework name and title on separate lines, first checking whether \@assignment and \@title are empty
-    {\large\bfseries\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
-    {\large\ifeq{\@title}{\@empty}{}{\\\@title}}
-    \vspace{.5cm}\\%
+    {\Large\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
+    {\Large\ifeq{\@title}{\@empty}{}{\\\@title}}
+    \vspace{.5cm}%
 }
 \newcommand{\PrintAuthor}{%
     \ifeq{\@author}{\@empty}{ % Producing an error if they haven't written their name
@@ -140,6 +105,13 @@
 	}{% \@course is defined
 	    Course: & \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}\\}
 }
+\newcommand{\PrintCourseHead}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
+	\ifeq{\@course}{\@empty}{% \@course isn't defined
+	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
+	    }{Section \@sectionnum}{}%
+	}{% \@course is defined
+	    \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}}
+}
 \newcommand{\PrintInstructor}{%
     \ifeq{\@instructor}{\@empty}{}{Instructor: & \@instructor\\}
 }
@@ -147,32 +119,32 @@
     \ifeq{\@institution}{\@empty}{}{\@institution\\}
 }
 
-\renewcommand{\maketitle}{%
-    \if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
-        \singlespacing
-    \fi
-    \thispagestyle{plain} %Only prints the page number, no other header or footer on this page
-    \begin{center}
-        \PrintAssignment
-        \begin{tabular}{rl}
-           \PrintAuthor
-           \PrintCourse
-           \PrintInstructor
-        \end{tabular}
-        \vspace{.5cm}\\
-        \PrintInstitution
-        \@date
-    \end{center}
-    \if@doublespaced % Making the document return to double spaced if that option is set
-        \doublespacing
-    \fi
-}
-
-% \renewcommand{\maketitle}{
-% 	\centering {
-% 		\PrintAssignment
-% 	}
+% \renewcommand{\maketitle}{%
+%     \if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
+%         \singlespacing
+%     \fi
+%     \thispagestyle{plain} %Only prints the page number, no other header or footer on this page
+%     \begin{center}
+%         \PrintAssignment
+%         \begin{tabular}{rl}
+%            \PrintAuthor
+%            \PrintCourse
+%            \PrintInstructor
+%         \end{tabular}
+%         \vspace{.5cm}\\
+%         \PrintInstitution
+%         \@date
+%     \end{center}
+%     \if@doublespaced % Making the document return to double spaced if that option is set
+%         \doublespacing
+%     \fi
 % }
+
+\renewcommand{\maketitle}{
+	\centering {
+		\PrintAssignment
+	}
+}
 
 
 % EXERCISE/PROOF
