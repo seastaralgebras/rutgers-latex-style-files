@@ -18,6 +18,7 @@
 \RequirePackage{thmtools}
 \RequirePackage{amssymb}
 \RequirePackage{fancyhdr}
+\RequirePackage{verbatim}
 
 \if@doublespaced
     \RequirePackage{setspace} % Setspace is preferred for line spacing over \linespread because it doesn't affect things like footnotes.
@@ -29,6 +30,21 @@
 
 % PAGE FORMATTING
 
+\fancypagestyle{firstpage}{
+	\fancyhf{}
+	\if@twoside
+		\fancyfoot[RE,LO]{\@semester}
+		\fancyfoot[C]{Page \thepage}
+		\fancyfoot[LE,RO]{\@institution}
+	\else
+		\fancyfoot[L]{\@semester}
+		\fancyfoot[C]{Page \thepage}
+		\fancyfoot[R]{\@institution}
+	\fi
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.4pt}
+}
+
 \pagestyle{fancy}
 \setlength{\headheight}{14pt}
 \fancyhf{}
@@ -37,14 +53,14 @@
 	\fancyhead[RE,LO]{\@author}
 	\fancyhead[C]{\PrintCourseHead}
 	\fancyhead[LE,RO]{\@date}
-	\fancyfoot[RE,LO]{\@instructor}
+	\fancyfoot[RE,LO]{\@semester}
 	\fancyfoot[C]{Page \thepage}
 	\fancyfoot[LE,RO]{\@institution}
 \else
 	\fancyhead[L]{\@author}
 	\fancyhead[C]{\PrintCourseHead}
 	\fancyhead[R]{\@date}
-	\fancyfoot[L]{\@instructor}
+	\fancyfoot[L]{\@semester}
 	\fancyfoot[C]{Page \thepage}
 	\fancyfoot[R]{\@institution}
 \fi
@@ -66,30 +82,36 @@
 
 \newcommand*{\assignment}[1]{\gdef\@assignment{#1}}
 \newcommand*{\course}[1]{\gdef\@course{#1}}
+\newcommand*{\semester}[1]{\gdef\@semester{#1}}
 \newcommand*{\sectionnum}[1]{\gdef\@sectionnum{#1}}
 \newcommand*{\instructor}[1]{\gdef\@instructor{#1}}
 \newcommand*{\institution}[1]{\gdef\@institution{#1}}
+\newcommand*{\collaborators}[1]{\gdef\@collaborators{#1}}
+\newcommand*{\netid}[1]{\gdef\@netid{#1}}
 
 \let\@assignment\@empty %defining these to be empty at first
 \let\@title\@empty
 \let\@author\@empty
 \let\@course\@empty
+\let\@semester\@empty
 \let\@sectionnum\@empty
 \let\@instructor\@empty
 \let\@institution\@empty
+\let\@collaborators\@empty
+\let\@netid\@empty
 
 \newcommand{\PrintAssignment}{% Printing the homework name and title on separate lines, first checking whether \@assignment and \@title are empty
-    {\Large\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
-    {\Large\ifeq{\@title}{\@empty}{}{\\\@title}}
-    \vspace{.5cm}%
+  {\huge\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
+  {\Large\ifeq{\@title}{\@empty}{}{\\\@title}}
+  \vspace{.5cm}%
 }
 \newcommand{\PrintAuthor}{%
     \ifeq{\@author}{\@empty}{ % Producing an error if they haven't written their name
-        \errmessage{You didn't write your name! Use the "\ author" command to change this.}%
-    }{%
-        \def\trueprintauthor{Name: & \@author}% This is what should be printed usually: "Name: Author"
-        \ifeq{\@course}{\@empty}{\ifeq{\@instructor}{\@empty}{\@author}{\trueprintauthor}}{\trueprintauthor}\\% Basically, if the author is the only bit of info defined, we don't ouput "Name: Author", but just "Author".  If either the course or instructor is defined, we output "Name: Author", as usual.
-    }
+      \errmessage{You didn't write your name! Use the "\ author" command to change this.}%
+  }{%
+      \def\trueprintauthor{Name: & \@author}% This is what should be printed usually: "Name: Author"
+      \ifeq{\@course}{\@empty}{\ifeq{\@instructor}{\@empty}{\@author}{\trueprintauthor}}{\trueprintauthor}\\% Basically, if the author is the only bit of info defined, we don't ouput "Name: Author", but just "Author".  If either the course or instructor is defined, we output "Name: Author", as usual.
+  }
 }
 \newcommand{\PrintCourse}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
 	\ifeq{\@course}{\@empty}{% \@course isn't defined
@@ -106,37 +128,39 @@
 	    \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}}
 }
 \newcommand{\PrintInstructor}{%
-    \ifeq{\@instructor}{\@empty}{}{Instructor: & \@instructor\\}
+  \ifeq{\@instructor}{\@empty}{}{Instructor: & \@instructor \\}
 }
 \newcommand{\PrintInstitution}{%
-    \ifeq{\@institution}{\@empty}{}{\@institution\\}
+  \ifeq{\@institution}{\@empty}{}{\@institution \\}
+}
+\newcommand{\PrintCollaborators}{%
+  \ifeq{\@collaborators}{\@empty}{}{Collaborators: & \@collaborators \\}
+}
+\newcommand{\PrintNetID}{%
+	\ifeq{\@netid}{\@empty}{}{NetID: & \@netid \\}
 }
 
-% \renewcommand{\maketitle}{%
-%     \if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
-%         \singlespacing
-%     \fi
-%     \thispagestyle{plain} %Only prints the page number, no other header or footer on this page
-%     \begin{center}
-%         \PrintAssignment
-%         \begin{tabular}{rl}
-%            \PrintAuthor
-%            \PrintCourse
-%            \PrintInstructor
-%         \end{tabular}
-%         \vspace{.5cm}\\
-%         \PrintInstitution
-%         \@date
-%     \end{center}
-%     \if@doublespaced % Making the document return to double spaced if that option is set
-%         \doublespacing
-%     \fi
-% }
-
-\renewcommand{\maketitle}{
-	\centering {
-		\PrintAssignment
-	}
+\renewcommand{\maketitle}{%
+    \if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
+        \singlespacing
+    \fi
+    \thispagestyle{firstpage} %Only prints the page number, no other header or footer on this page
+    \begin{center}
+        \PrintAssignment \\
+        \begin{tabular}{rl}
+           \PrintAuthor
+					 \PrintNetID
+					 \PrintCollaborators
+           \PrintCourse
+           \PrintInstructor
+        \end{tabular}
+        \vspace{.5cm}\\
+        %\PrintInstitution
+        \@date
+    \end{center}
+    \if@doublespaced % Making the document return to double spaced if that option is set
+        \doublespacing
+    \fi
 }
 
 
