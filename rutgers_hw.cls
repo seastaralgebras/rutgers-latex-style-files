@@ -51,15 +51,15 @@
 
 \if@twoside
 	\fancyhead[RE,LO]{\@author}
-	\fancyhead[C]{\PrintCourseHead}
-	\fancyhead[LE,RO]{\@date}
+	\fancyhead[C]{\@assigment}
+	\fancyhead[LE,RO]{\PrintCourseHead}
 	\fancyfoot[RE,LO]{\@semester}
 	\fancyfoot[C]{Page \thepage}
 	\fancyfoot[LE,RO]{\@institution}
 \else
 	\fancyhead[L]{\@author}
-	\fancyhead[C]{\PrintCourseHead}
-	\fancyhead[R]{\@date}
+	\fancyhead[C]{\@assignment}
+	\fancyhead[R]{\PrintCourseHead}
 	\fancyfoot[L]{\@semester}
 	\fancyfoot[C]{Page \thepage}
 	\fancyfoot[R]{\@institution}
