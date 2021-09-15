@@ -250,7 +250,7 @@
 
 \newenvironment{induction}{
 	\vskip 6pt
-	\begin{minipage}[t]{\textwidth}
+	\noindent\begin{minipage}[t]{\textwidth}
 }{
 	\end{minipage}
 }
