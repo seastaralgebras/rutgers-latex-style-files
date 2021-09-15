@@ -4,12 +4,12 @@
 
 \author{Firstname Lastname} % Enter your name
 \netid{abc123}
-\collaborators{Leonhard Euler, Bernard Bolzano} % Enter your collaborators
+\collaborators{Leonhard Euler, Bernard Bolzano} % Enter your collaborators or comment out
 \assignment{Assignment 1} % Enter the assignment name
 \date{\today} % Replace with due date
 \course{Course Name} % Enter the course name
 \semester{Fall 2021} % Enter the semester
-\sectionnum{3} % Enter your section number or comment out
+\sectionnum{123} % Enter your section number or comment out
 \instructor{Professor Name} % Enter your professor's name
 \institution{Rutgers University} % Enter your university
 
@@ -20,17 +20,50 @@
 % You can comment out code by using the percentage symbol
 
 
-\begin{exercise}{1.2.3}
-  Exercise text here
-\end{exercise}
-\begin{solution}
-  Your answer here
+\begin{exern}{1.2.3} % This is a manually numbered exercise.
+  Exercise text
+\end{exern}
+\begin{solution} % This is a solution environment.
+  Your answer here.
 \end{solution}
 
-\newpage
+\begin{exer} % This is an automatically numbered exercise.
+  Exercise text
+\end{exer}
+\begin{proof} % This is a proof environment.
+  Your proof here. \par
 
-\begin{exercise}{2}
-  Test 123
-\end{exercise}
+  You may want to write an induction proof. You can use the induction commands as follows:
+  \begin{induction}
+    \begin{basecase}
+      This is your base case.
+    \end{basecase}
+    \begin{indhyp}
+      This is your induction hypothesis.
+    \end{indhyp}
+    \begin{indstep}
+      This is your induction step.
+    \end{indstep}
+    Thus by the principle of mathematical induction, we have proven our theorem. \qedhere % The command \qedhere places the QED symbol on the same line, instead of adding another line.
+  \end{induction}
+\end{proof}
+
+\begin{exeru} % This is an exercise that is not numbered.
+  Exercise text
+\end{exeru}
+
+\begin{thm} % This is an automatically numbered theorem. For a theorem that isn't numbered, use thmu instead; for a manually numbered theorem, use thmn and add number in a set of curly braces.
+  This is a theorem.
+\end{thm}
+
+\begin{lem} % This is an automatically numbered lemma. For a lemma that isn't numbered, use lemu instead; for a manually numbered lemma, use lemn and add number in a set of curly braces.
+  This is a lemma.
+\end{lem}
+
+\begin{defn} % This is an automatically numbered definition. For a definition that isn't numbered, use defnu instead; for a manually numbered definition, use defnn and add number in a set of curly braces.
+  This is a definition.
+\end{defn}
+
+
 
 \end{document}

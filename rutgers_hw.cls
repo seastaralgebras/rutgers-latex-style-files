@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{rutgers_hw}[2021/09/13 Rutgers Homework LaTeX class]
+\ProvidesClass{rutgers_hw}[2021/09/14 Rutgers Homework LaTeX class]
 
 \newif\if@doublespaced \@doublespacedfalse % Default of single spaced documents.  To load the package setspace later, we introduce this conditional and have the option set the conditional to true.
 \DeclareOption{doublespaced}{\@doublespacedtrue}
@@ -19,6 +19,10 @@
 \RequirePackage{amssymb}
 \RequirePackage{fancyhdr}
 \RequirePackage{verbatim}
+\RequirePackage[skins]{tcolorbox}
+\RequirePackage{lmodern}
+
+
 
 \if@doublespaced
     \RequirePackage{setspace} % Setspace is preferred for line spacing over \linespread because it doesn't affect things like footnotes.
@@ -139,6 +143,7 @@
 \newcommand{\PrintNetID}{%
 	\ifeq{\@netid}{\@empty}{}{NetID: & \@netid \\}
 }
+\newcommand{\PrintDate}{Date: & \@date}
 
 \renewcommand{\maketitle}{%
     \if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
@@ -153,10 +158,11 @@
 					 \PrintCollaborators
            \PrintCourse
            \PrintInstructor
+					 \PrintDate
         \end{tabular}
-        \vspace{.5cm}\\
+        %\vspace{.5cm}\\
         %\PrintInstitution
-        \@date
+        %\@date
     \end{center}
     \if@doublespaced % Making the document return to double spaced if that option is set
         \doublespacing
@@ -166,24 +172,103 @@
 
 % EXERCISE/PROOF
 
-\declaretheoremstyle[
-    spaceabove=.75cm, spacebelow=0cm,
-    headfont=\normalfont\bfseries,
-    notefont=\mdseries, notebraces={(}{)},
-    bodyfont=\normalfont,
-    postheadspace=.5em,
-]{HWtemplate}
-\theoremstyle{HWtemplate}
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{corr}[thm]{Corrolary}
 
-\newtheorem{manualexercise}{Exercise}
-\newenvironment{exercise}[1]{%
-  \renewcommand\themanualexercise{#1}%
-  \manualexercise
-}{\endmanualexercise}
+\newtheorem*{thmu}{Theorem}
+\newtheorem*{lemu}{Lemma}
+\newtheorem*{corru}{Corrolary}
 
-\newenvironment{solution}[1][Solution]{\begin{proof}[#1]}{\end{proof}}
+\newtheorem{manualthmn}{Theorem}
+\newenvironment{thmn}[1]{%
+  \renewcommand\themanualthmn{#1}%
+  \manualthmn
+}{\endmanualthmn}
 
-%\renewcommand\qedsymbol{$\dashv$}
+\newtheorem{manuallemn}{Lemma}
+\newenvironment{lemn}[1]{%
+  \renewcommand\themanuallemn{#1}%
+  \manuallemn
+}{\endmanuallemn}
+
+\newtheorem{manualcorrn}{Corrolary}
+\newenvironment{corrn}[1]{%
+  \renewcommand\themanualcorrn{#1}%
+  \manualcorrn
+}{\endmanualcorrn}
+
+\theoremstyle{definition}
+
+\newtheorem{defn}[thm]{Definition}
+\newtheorem*{defnu}{Definition}
+
+\newtheorem{manualdefnn}{Definition}
+\newenvironment{defnn}[1]{%
+  \renewcommand\themanualdefnn{#1}%
+  \manualdefnn
+}{\endmanualdefnn}
+
+\newtheorem{manualexern}{Exercise}
+\newenvironment{exern}[1]{%
+  \renewcommand\themanualexern{#1}%
+  \manualexern
+}{\endmanualexern}
+
+\newtheorem{exer}{Exercise}
+\newtheorem*{exeru}{Exercise}
+
+\newenvironment{solution}[1][Solution]{\begin{proof}[#1]\let\qed\relax}{\end{proof}}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+
+% INDUCTION ENVIORNMENT
+
+% \newtcbox{\rbox}[1][]{on line, sharp corners, colback=white, colframe=black, size=small, rightrule=0pt,#1}
+%
+% \newtcbox{\tbox}[1][]{on line, sharp corners, colback=white, colframe=black, size=small, toprule=0pt,#1}
+%
+% \newtcbox{\bbox}[1][]{on line, sharp corners, colback=white, colframe=black, size=small, bottomrule=0pt,#1}
+
+
+% \begin{tcolorbox}[enhanced,title=Base case,
+% attach boxed title to top left=
+% {xshift=-2mm,yshift=-2mm},
+% boxed title style={sharp corners, colback=white, colframe=black, size=small},
+% show bounding box]
+% This is a \textbf{tcolorbox}.
+% \end{tcolorbox}
+
+
+\newtcolorbox{inductionbox}[1]{title={#1},enhanced,sharp corners,
+  coltitle=black,
+  top=0.3in,
+  attach boxed title to top left=
+  {xshift=0em,yshift=-\tcboxedtitleheight},
+  boxed title style={sharp corners, size=small,colback=white}}
+
+\newenvironment{induction}{
+	\vskip 6pt
+	\begin{minipage}[t]{\textwidth}
+}{
+	\end{minipage}
+}
+\newenvironment{basecase}{
+	\begin{inductionbox}{Base case}
+}{
+	\end{inductionbox}
+}
+\newenvironment{indhyp}{
+	\begin{inductionbox}{Induction hypothesis}
+}{
+	\end{inductionbox}
+}
+\newenvironment{indstep}{
+	\begin{inductionbox}{Induction step}
+}{
+	\end{inductionbox}
+}
 
 
 
