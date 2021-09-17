@@ -174,11 +174,11 @@
 
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
-\newtheorem{corr}[thm]{Corrolary}
+\newtheorem{coro}[thm]{Corollary}
 
 \newtheorem*{thmu}{Theorem}
 \newtheorem*{lemu}{Lemma}
-\newtheorem*{corru}{Corrolary}
+\newtheorem*{corou}{Corollary}
 
 \newtheorem{manualthmn}{Theorem}
 \newenvironment{thmn}[1]{%
@@ -192,11 +192,11 @@
   \manuallemn
 }{\endmanuallemn}
 
-\newtheorem{manualcorrn}{Corrolary}
-\newenvironment{corrn}[1]{%
-  \renewcommand\themanualcorrn{#1}%
-  \manualcorrn
-}{\endmanualcorrn}
+\newtheorem{manualcoron}{Corollary}
+\newenvironment{coron}[1]{%
+  \renewcommand\themanualcoron{#1}%
+  \manualcoron
+}{\endmanualcoron}
 
 \theoremstyle{definition}
 
@@ -224,21 +224,6 @@
 
 
 % INDUCTION ENVIORNMENT
-
-% \newtcbox{\rbox}[1][]{on line, sharp corners, colback=white, colframe=black, size=small, rightrule=0pt,#1}
-%
-% \newtcbox{\tbox}[1][]{on line, sharp corners, colback=white, colframe=black, size=small, toprule=0pt,#1}
-%
-% \newtcbox{\bbox}[1][]{on line, sharp corners, colback=white, colframe=black, size=small, bottomrule=0pt,#1}
-
-
-% \begin{tcolorbox}[enhanced,title=Base case,
-% attach boxed title to top left=
-% {xshift=-2mm,yshift=-2mm},
-% boxed title style={sharp corners, colback=white, colframe=black, size=small},
-% show bounding box]
-% This is a \textbf{tcolorbox}.
-% \end{tcolorbox}
 
 
 \newtcolorbox{inductionbox}[1]{title={#1},enhanced,sharp corners,
