@@ -65,63 +65,65 @@
   }
 
   \newcommand{\exthmcolor}{black}
-  \newcommand{\exthmcbefore}{20pt}
-  \newcommand{\exthmcafter}{10pt}
+  \newcommand{\exthmbefore}{15pt}
+  \newcommand{\exthmafter}{10pt}
   \newcommand{\proofcolor}{cyan!75!black}
+  \newcommand{\proofbefore}{10pt}
+  \newcommand{\proofafter}{15pt}
 
   \tcolorboxenvironment{exer}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
   \tcolorboxenvironment{exern}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
   \tcolorboxenvironment{exeru}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
 
   \tcolorboxenvironment{thm}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
   \tcolorboxenvironment{thmn}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
   \tcolorboxenvironment{thmu}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
 
   \tcolorboxenvironment{lem}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
   \tcolorboxenvironment{lemn}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
   \tcolorboxenvironment{lemu}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
 
   \tcolorboxenvironment{coro}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
   \tcolorboxenvironment{coron}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
   \tcolorboxenvironment{coron}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
 
   \tcolorboxenvironment{defn}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
   \tcolorboxenvironment{defnn}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
   \tcolorboxenvironment{defnu}{
   enhanced jigsaw,colframe=\exthmcolor,interior hidden,
-  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  breakable,before skip=\exthmbefore,after skip=\exthmafter }
 
   \tcolorboxenvironment{proof}{% `proof' from `amsthm'
   blanker,breakable,left=5mm,
-  before skip=10pt,after skip=6pt,
+  before skip=\proofbefore,after skip=\proofafter,
   borderline west={.5mm}{0pt}{\proofcolor}}
 \else
   \tcbset{colback=white,colframe=black,fonttitle=\bfseries}
