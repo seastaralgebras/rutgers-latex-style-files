@@ -272,10 +272,10 @@
 		\PrintAssignment \\
 		\begin{tabularx}{\linewidth}{r X}
 			\PrintAuthor
-			\PrintCourse
 			\PrintNetID
-			\PrintInstructor
 			\PrintCollaborators
+			\PrintCourse
+			\PrintInstructor
 			\PrintDate
 		\end{tabularx}
 	\end{center}
