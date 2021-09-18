@@ -123,69 +123,6 @@
   blanker,breakable,left=5mm,
   before skip=10pt,after skip=6pt,
   borderline west={.5mm}{0pt}{\proofcolor}}
-
-  \newcommand{\PrintAssignment}{% Printing the homework name and title on separate lines, first checking whether \@assignment and \@title are empty
-    {\huge\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
-    {\large\ifeq{\@title}{\@empty}{}{\\\@title}}
-    \vspace{.5cm}%
-  }
-  \newcommand{\PrintAuthor}{%
-      \ifeq{\@author}{\@empty}{ % Producing an error if they haven't written their name
-        \errmessage{You didn't write your name! Use the "\ author" command to change this.}%
-    }{%
-        \def\trueprintauthor{Name: & \@author}% This is what should be printed usually: "Name: Author"
-        \ifeq{\@course}{\@empty}{\ifeq{\@instructor}{\@empty}{\@author}{\trueprintauthor}}{\trueprintauthor}% Basically, if the author is the only bit of info defined, we don't ouput "Name: Author", but just "Author".  If either the course or instructor is defined, we output "Name: Author", as usual.
-    }
-  }
-  \newcommand{\PrintCourse}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
-  	\ifeq{\@course}{\@empty}{% \@course isn't defined
-  	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
-  	    }{Section: & \@sectionnum}{}%
-  	}{% \@course is defined
-  	    Course: & \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}}
-  }
-  \newcommand{\PrintCourseHead}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
-  	\ifeq{\@course}{\@empty}{% \@course isn't defined
-  	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
-  	    }{Section: & \@sectionnum}{}%
-  	}{% \@course is defined
-  	    \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}}
-  }
-  \newcommand{\PrintInstructor}{%
-    \ifeq{\@instructor}{\@empty}{ &  }{Instructor: & \@instructor}
-  }
-  \newcommand{\PrintInstitution}{%
-    \ifeq{\@institution}{\@empty}{}{\@institution}
-  }
-  \newcommand{\PrintCollaborators}{%
-    \ifeq{\@collaborators}{\@empty}{ & }{Collaborators: & \@collaborators}
-  }
-  \newcommand{\PrintNetID}{%
-  	\ifeq{\@netid}{\@empty}{ & }{NetID: & \@netid}
-  }
-  \newcommand{\PrintDate}{Date: & \@date}
-
-
-  \renewcommand{\maketitle}{%
-    \if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
-      \singlespacing
-    \fi
-    \thispagestyle{firstpage} %Only prints the page number, no other header or footer on this page
-    {\centering \PrintAssignment \\}
-    \noindent
-    \begin{minipage}[t]{\textwidth}
-      \begin{infobox}
-        \begin{tabularx}{\linewidth}{r X | r X}
-          \PrintAuthor & \PrintCourse \\
-    			\PrintNetID & \PrintInstructor \\
-    			\PrintCollaborators & \PrintDate \\
-        \end{tabularx}
-      \end{infobox}
-    \end{minipage}
-    \if@doublespaced % Making the document return to double spaced if that option is set
-      \doublespacing
-    \fi
-  }
 \else
   \tcbset{colback=white,colframe=black,fonttitle=\bfseries}
 
@@ -205,68 +142,6 @@
     {xshift=0em,yshift=-\tcboxedtitleheight},
     colframe=gray,
     boxed title style={sharp corners, size=small,colback=white}
-  }
-
-  \newcommand{\PrintAssignment}{% Printing the homework name and title on separate lines, first checking whether \@assignment and \@title are empty
-    {\huge\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
-    {\large\ifeq{\@title}{\@empty}{}{\\\@title}}
-    \vspace{.5cm}%
-  }
-  \newcommand{\PrintAuthor}{%
-      \ifeq{\@author}{\@empty}{ % Producing an error if they haven't written their name
-        \errmessage{You didn't write your name! Use the "\ author" command to change this.}%
-    }{%
-        \def\trueprintauthor{Name: & \@author\\}% This is what should be printed usually: "Name: Author"
-        \ifeq{\@course}{\@empty}{\ifeq{\@instructor}{\@empty}{\@author}{\trueprintauthor}}{\trueprintauthor}% Basically, if the author is the only bit of info defined, we don't ouput "Name: Author", but just "Author".  If either the course or instructor is defined, we output "Name: Author", as usual.
-    }
-  }
-  \newcommand{\PrintCourse}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
-  	\ifeq{\@course}{\@empty}{% \@course isn't defined
-  	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
-  	    }{Section: & \@sectionnum\\}{}%
-  	}{% \@course is defined
-  	    Course: & \@course\ifeq{\@sectionnum}{\@empty}{\\}{\ \S\@sectionnum\\}}
-  }
-  \newcommand{\PrintCourseHead}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
-  	\ifeq{\@course}{\@empty}{% \@course isn't defined
-  	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
-  	    }{Section \@sectionnum}{}%
-  	}{% \@course is defined
-  	    \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}}
-  }
-  \newcommand{\PrintInstructor}{%
-    \ifeq{\@instructor}{\@empty}{}{Instructor: & \@instructor \\}
-  }
-  \newcommand{\PrintInstitution}{%
-    \ifeq{\@institution}{\@empty}{}{\@institution}
-  }
-  \newcommand{\PrintCollaborators}{%
-    \ifeq{\@collaborators}{\@empty}{}{Collaborators: & \@collaborators \\}
-  }
-  \newcommand{\PrintNetID}{%
-  	\ifeq{\@netid}{\@empty}{}{NetID: & \@netid \\}
-  }
-  \newcommand{\PrintDate}{Date: & \@date \\}
-
-  \renewcommand{\maketitle}{%
-    \if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
-      \singlespacing
-    \fi
-    \thispagestyle{firstpage} %Only prints the page number, no other header or footer on this page
-    \begin{center}
-      \PrintAssignment \\
-      \begin{tabular}{rl}
-        \PrintAuthor
-        \PrintCourse
-    		\PrintNetID
-        \PrintInstructor
-    		\PrintCollaborators
-        \PrintDate
-      \end{tabular}
-    \end{center}
-    \if@doublespaced % Making the document return to double spaced if that option is set
-      \doublespacing
-    \fi
   }
 \fi
 
@@ -345,7 +220,71 @@
 \let\@collaborators\@empty
 \let\@netid\@empty
 
+\newcommand{\PrintAssignment}{% Printing the homework name and title on separate lines, first checking whether \@assignment and \@title are empty
+	{\huge\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
+	{\large\ifeq{\@title}{\@empty}{}{\\\@title}}
+	\vspace{.5cm}%
+}
+\newcommand{\PrintAuthor}{%
+		\ifeq{\@author}{\@empty}{ % Producing an error if they haven't written their name
+			\errmessage{You didn't write your name! Use the "\ author" command to change this.}%
+	}{%
+			\def\trueprintauthor{Name: & \@author\\}% This is what should be printed usually: "Name: Author"
+			\ifeq{\@course}{\@empty}{\ifeq{\@instructor}{\@empty}{\@author}{\trueprintauthor}}{\trueprintauthor}% Basically, if the author is the only bit of info defined, we don't ouput "Name: Author", but just "Author".  If either the course or instructor is defined, we output "Name: Author", as usual.
+	}
+}
+\newcommand{\PrintCourse}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
+	\ifeq{\@course}{\@empty}{% \@course isn't defined
+			\ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
+			}{Section: & \@sectionnum\\}{}%
+	}{% \@course is defined
+			Course: & \@course\ifeq{\@sectionnum}{\@empty}{\\}{\ \S\@sectionnum\\}}
+}
+\newcommand{\PrintCourseHead}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
+	\ifeq{\@course}{\@empty}{% \@course isn't defined
+			\ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
+			}{Section \@sectionnum}{}%
+	}{% \@course is defined
+			\@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}}
+}
+\newcommand{\PrintInstructor}{%
+	\ifeq{\@instructor}{\@empty}{}{Instructor: & \@instructor \\}
+}
+\newcommand{\PrintInstitution}{%
+	\ifeq{\@institution}{\@empty}{}{\@institution}
+}
+\newcommand{\PrintCollaborators}{%
+	\ifeq{\@collaborators}{\@empty}{}{Collaborators: & \@collaborators \\}
+}
+\newcommand{\PrintNetID}{%
+	\ifeq{\@netid}{\@empty}{}{NetID: & \@netid \\}
+}
+\newcommand{\PrintDate}{Date: & \@date \\}
 
+\renewcommand{\maketitle}{%
+	\if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
+		\singlespacing
+	\fi
+	\thispagestyle{firstpage} %Only prints the page number, no other header or footer on this page
+	\begin{center}
+		\PrintAssignment \\
+		\begin{tabularx}{\linewidth}{r X}
+			\PrintAuthor
+			\PrintCourse
+			\PrintNetID
+			\PrintInstructor
+			\PrintCollaborators
+			\PrintDate
+		\end{tabularx}
+	\end{center}
+	\if@doublespaced % Making the document return to double spaced if that option is set
+		\doublespacing
+	\fi
+}
+
+
+
+% THEOREM/EXERCISE COMMANDS
 
 
 \newtheorem{thm}{Theorem}
