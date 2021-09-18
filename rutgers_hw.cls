@@ -347,9 +347,9 @@
 
 \newenvironment{induction}{
 	\vskip 6pt
-	\noindent\begin{minipage}[t]{\textwidth}
+% 	\noindent\begin{minipage}[t]{\textwidth}
 }{
-	\end{minipage}
+% 	\end{minipage}
 }
 \newenvironment{basecase}{
 	\begin{inductionbox}{Base case}
