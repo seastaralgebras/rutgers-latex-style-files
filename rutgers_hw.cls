@@ -1,8 +1,16 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{rutgers_hw}[2021/09/15 Rutgers Homework LaTeX class]
+\ProvidesClass{rutgers_hw}[2021/09/18 Rutgers Homework2 LaTeX class ]
+
 
 \newif\if@doublespaced \@doublespacedfalse % Default of single spaced documents.  To load the package setspace later, we introduce this conditional and have the option set the conditional to true.
+\newif\if@sansserif \@sansseriffalse
+\newif\if@boxes \@boxesfalse
+
 \DeclareOption{doublespaced}{\@doublespacedtrue}
+
+\DeclareOption{sansserif}{\@sansseriftrue}
+
+\DeclareOption{boxes}{\@boxestrue}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions
@@ -19,14 +27,247 @@
 \RequirePackage{amssymb}
 \RequirePackage{fancyhdr}
 \RequirePackage{verbatim}
-\RequirePackage[skins]{tcolorbox}
+\RequirePackage[skins,theorems,breakable]{tcolorbox}
 \RequirePackage{lmodern}
+\RequirePackage{tabularx}
 
 
 
 \if@doublespaced
     \RequirePackage{setspace} % Setspace is preferred for line spacing over \linespread because it doesn't affect things like footnotes.
     \doublespacing
+\fi
+
+\if@sansserif
+  \RequirePackage{cmbright}
+  \RequirePackage[OT1]{fontenc}
+\fi
+
+\if@boxes
+  \tcbset{colback=white,colframe=black,fonttitle=\bfseries}
+
+  \newtcolorbox{infobox}[0]{colback=white,
+  colframe=black,
+  %fonttitle=\bfseries\centering,
+  % attach boxed title to top left={yshift=0mm,xshift=0mm},
+  %sidebyside,
+  boxed title style={boxrule=0pt,colframe=white,}
+  }
+
+  \newtcolorbox{inductionbox}[1]{title={#1},enhanced,
+    coltitle=black,
+    % colback=white,
+    top=4mm,
+    attach boxed title to top left=
+    {yshift=-2mm,xshift=2mm},
+    colframe=gray,
+    boxed title style={size=small,colback=white}
+  }
+
+  \newcommand{\exthmcolor}{black}
+  \newcommand{\exthmcbefore}{20pt}
+  \newcommand{\exthmcafter}{10pt}
+  \newcommand{\proofcolor}{cyan!75!black}
+
+  \tcolorboxenvironment{exer}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  \tcolorboxenvironment{exern}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  \tcolorboxenvironment{exeru}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+
+  \tcolorboxenvironment{thm}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  \tcolorboxenvironment{thmn}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  \tcolorboxenvironment{thmu}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+
+  \tcolorboxenvironment{lem}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  \tcolorboxenvironment{lemn}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  \tcolorboxenvironment{lemu}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+
+  \tcolorboxenvironment{coro}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  \tcolorboxenvironment{coron}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  \tcolorboxenvironment{coron}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+
+  \tcolorboxenvironment{defn}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  \tcolorboxenvironment{defnn}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+  \tcolorboxenvironment{defnu}{
+  enhanced jigsaw,colframe=\exthmcolor,interior hidden,
+  breakable,before skip=\exthmcbefore,after skip=\exthmcafter }
+
+  \tcolorboxenvironment{proof}{% `proof' from `amsthm'
+  blanker,breakable,left=5mm,
+  before skip=10pt,after skip=6pt,
+  borderline west={.5mm}{0pt}{\proofcolor}}
+
+  \newcommand{\PrintAssignment}{% Printing the homework name and title on separate lines, first checking whether \@assignment and \@title are empty
+    {\huge\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
+    {\large\ifeq{\@title}{\@empty}{}{\\\@title}}
+    \vspace{.5cm}%
+  }
+  \newcommand{\PrintAuthor}{%
+      \ifeq{\@author}{\@empty}{ % Producing an error if they haven't written their name
+        \errmessage{You didn't write your name! Use the "\ author" command to change this.}%
+    }{%
+        \def\trueprintauthor{Name: & \@author}% This is what should be printed usually: "Name: Author"
+        \ifeq{\@course}{\@empty}{\ifeq{\@instructor}{\@empty}{\@author}{\trueprintauthor}}{\trueprintauthor}% Basically, if the author is the only bit of info defined, we don't ouput "Name: Author", but just "Author".  If either the course or instructor is defined, we output "Name: Author", as usual.
+    }
+  }
+  \newcommand{\PrintCourse}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
+  	\ifeq{\@course}{\@empty}{% \@course isn't defined
+  	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
+  	    }{Section: & \@sectionnum}{}%
+  	}{% \@course is defined
+  	    Course: & \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}}
+  }
+  \newcommand{\PrintCourseHead}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
+  	\ifeq{\@course}{\@empty}{% \@course isn't defined
+  	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
+  	    }{Section: & \@sectionnum}{}%
+  	}{% \@course is defined
+  	    \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}}
+  }
+  \newcommand{\PrintInstructor}{%
+    \ifeq{\@instructor}{\@empty}{ &  }{Instructor: & \@instructor}
+  }
+  \newcommand{\PrintInstitution}{%
+    \ifeq{\@institution}{\@empty}{}{\@institution}
+  }
+  \newcommand{\PrintCollaborators}{%
+    \ifeq{\@collaborators}{\@empty}{ & }{Collaborators: & \@collaborators}
+  }
+  \newcommand{\PrintNetID}{%
+  	\ifeq{\@netid}{\@empty}{ & }{NetID: & \@netid}
+  }
+  \newcommand{\PrintDate}{Date: & \@date}
+
+
+  \renewcommand{\maketitle}{%
+    \if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
+      \singlespacing
+    \fi
+    \thispagestyle{firstpage} %Only prints the page number, no other header or footer on this page
+    {\centering \PrintAssignment \\}
+    \noindent
+    \begin{minipage}[t]{\textwidth}
+      \begin{infobox}
+        \begin{tabularx}{\linewidth}{r X | r X}
+          \PrintAuthor & \PrintCourse \\
+    			\PrintNetID & \PrintInstructor \\
+    			\PrintCollaborators & \PrintDate \\
+        \end{tabularx}
+      \end{infobox}
+    \end{minipage}
+    \if@doublespaced % Making the document return to double spaced if that option is set
+      \doublespacing
+    \fi
+  }
+\else
+  \tcbset{colback=white,colframe=black,fonttitle=\bfseries}
+
+  \newtcolorbox{infobox}[0]{colback=white,
+  colframe=black,
+  %fonttitle=\bfseries\centering,
+  % attach boxed title to top left={yshift=0mm,xshift=0mm},
+  %sidebyside,
+  sharp corners,
+  boxed title style={boxrule=0pt,colframe=white,}
+  }
+
+  \newtcolorbox{inductionbox}[1]{title={#1},enhanced,sharp corners,
+    coltitle=black,
+    top=0.3in,
+    attach boxed title to top left=
+    {xshift=0em,yshift=-\tcboxedtitleheight},
+    colframe=gray,
+    boxed title style={sharp corners, size=small,colback=white}
+  }
+
+  \newcommand{\PrintAssignment}{% Printing the homework name and title on separate lines, first checking whether \@assignment and \@title are empty
+    {\huge\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
+    {\large\ifeq{\@title}{\@empty}{}{\\\@title}}
+    \vspace{.5cm}%
+  }
+  \newcommand{\PrintAuthor}{%
+      \ifeq{\@author}{\@empty}{ % Producing an error if they haven't written their name
+        \errmessage{You didn't write your name! Use the "\ author" command to change this.}%
+    }{%
+        \def\trueprintauthor{Name: & \@author\\}% This is what should be printed usually: "Name: Author"
+        \ifeq{\@course}{\@empty}{\ifeq{\@instructor}{\@empty}{\@author}{\trueprintauthor}}{\trueprintauthor}% Basically, if the author is the only bit of info defined, we don't ouput "Name: Author", but just "Author".  If either the course or instructor is defined, we output "Name: Author", as usual.
+    }
+  }
+  \newcommand{\PrintCourse}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
+  	\ifeq{\@course}{\@empty}{% \@course isn't defined
+  	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
+  	    }{Section: & \@sectionnum\\}{}%
+  	}{% \@course is defined
+  	    Course: & \@course\ifeq{\@sectionnum}{\@empty}{\\}{\ \S\@sectionnum\\}}
+  }
+  \newcommand{\PrintCourseHead}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
+  	\ifeq{\@course}{\@empty}{% \@course isn't defined
+  	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
+  	    }{Section \@sectionnum}{}%
+  	}{% \@course is defined
+  	    \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}}
+  }
+  \newcommand{\PrintInstructor}{%
+    \ifeq{\@instructor}{\@empty}{}{Instructor: & \@instructor \\}
+  }
+  \newcommand{\PrintInstitution}{%
+    \ifeq{\@institution}{\@empty}{}{\@institution}
+  }
+  \newcommand{\PrintCollaborators}{%
+    \ifeq{\@collaborators}{\@empty}{}{Collaborators: & \@collaborators \\}
+  }
+  \newcommand{\PrintNetID}{%
+  	\ifeq{\@netid}{\@empty}{}{NetID: & \@netid \\}
+  }
+  \newcommand{\PrintDate}{Date: & \@date \\}
+
+  \renewcommand{\maketitle}{%
+    \if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
+      \singlespacing
+    \fi
+    \thispagestyle{firstpage} %Only prints the page number, no other header or footer on this page
+    \begin{center}
+      \PrintAssignment \\
+      \begin{tabular}{rl}
+        \PrintAuthor
+        \PrintCourse
+    		\PrintNetID
+        \PrintInstructor
+    		\PrintCollaborators
+        \PrintDate
+      \end{tabular}
+    \end{center}
+    \if@doublespaced % Making the document return to double spaced if that option is set
+      \doublespacing
+    \fi
+  }
 \fi
 
 
@@ -77,12 +318,12 @@
 % TITLE COMMANDS
 
 \def\ifeq#1#2{% This takes the form \ifeq{1}{2}{3}{4} where if 1=2 then 3 else 4.  Usually this is used in the context of checking if 1=empty/undefined.
-        \ifx#1#2\relax
-            \expandafter\@firstoftwo
-        \else
-            \expandafter\@secondoftwo
-        \fi%
-    }
+  \ifx#1#2\relax
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi%
+}
 
 \newcommand*{\assignment}[1]{\gdef\@assignment{#1}}
 \newcommand*{\course}[1]{\gdef\@course{#1}}
@@ -104,73 +345,8 @@
 \let\@collaborators\@empty
 \let\@netid\@empty
 
-\newcommand{\PrintAssignment}{% Printing the homework name and title on separate lines, first checking whether \@assignment and \@title are empty
-  {\huge\ifeq{\@assignment}{\@empty}{Assignment}{\@assignment}}
-  {\Large\ifeq{\@title}{\@empty}{}{\\\@title}}
-  \vspace{.5cm}%
-}
-\newcommand{\PrintAuthor}{%
-    \ifeq{\@author}{\@empty}{ % Producing an error if they haven't written their name
-      \errmessage{You didn't write your name! Use the "\ author" command to change this.}%
-  }{%
-      \def\trueprintauthor{Name: & \@author}% This is what should be printed usually: "Name: Author"
-      \ifeq{\@course}{\@empty}{\ifeq{\@instructor}{\@empty}{\@author}{\trueprintauthor}}{\trueprintauthor}\\% Basically, if the author is the only bit of info defined, we don't ouput "Name: Author", but just "Author".  If either the course or instructor is defined, we output "Name: Author", as usual.
-  }
-}
-\newcommand{\PrintCourse}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
-	\ifeq{\@course}{\@empty}{% \@course isn't defined
-	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
-	    }{Section: & \@sectionnum\\}{}%
-	}{% \@course is defined
-	    Course: & \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}\\}
-}
-\newcommand{\PrintCourseHead}{% Outputting "Course: \@course §\@sectionnum" if the course and section are defined.  If only the course is defined, then it outputs "Course: \@course" and if just the section is defined, it outputs "Section: \@sectionnum"
-	\ifeq{\@course}{\@empty}{% \@course isn't defined
-	    \ifeq{\@sectionnum}{\@empty}{% \@course and \@sectionnum aren't defined
-	    }{Section \@sectionnum}{}%
-	}{% \@course is defined
-	    \@course\ifeq{\@sectionnum}{\@empty}{}{\ \S\@sectionnum}}
-}
-\newcommand{\PrintInstructor}{%
-  \ifeq{\@instructor}{\@empty}{}{Instructor: & \@instructor \\}
-}
-\newcommand{\PrintInstitution}{%
-  \ifeq{\@institution}{\@empty}{}{\@institution \\}
-}
-\newcommand{\PrintCollaborators}{%
-  \ifeq{\@collaborators}{\@empty}{}{Collaborators: & \@collaborators \\}
-}
-\newcommand{\PrintNetID}{%
-	\ifeq{\@netid}{\@empty}{}{NetID: & \@netid \\}
-}
-\newcommand{\PrintDate}{Date: & \@date}
-
-\renewcommand{\maketitle}{%
-    \if@doublespaced % Making the info dump single spaced even if the rest of the document is double spaced
-        \singlespacing
-    \fi
-    \thispagestyle{firstpage} %Only prints the page number, no other header or footer on this page
-    \begin{center}
-        \PrintAssignment \\
-        \begin{tabular}{rl}
-           \PrintAuthor
-					 \PrintNetID
-					 \PrintCollaborators
-           \PrintCourse
-           \PrintInstructor
-					 \PrintDate
-        \end{tabular}
-        %\vspace{.5cm}\\
-        %\PrintInstitution
-        %\@date
-    \end{center}
-    \if@doublespaced % Making the document return to double spaced if that option is set
-        \doublespacing
-    \fi
-}
 
 
-% EXERCISE/PROOF
 
 \newtheorem{thm}{Theorem}
 \newtheorem{lem}[thm]{Lemma}
@@ -218,20 +394,15 @@
 \newtheorem{exer}{Exercise}
 \newtheorem*{exeru}{Exercise}
 
+
 \newenvironment{solution}[1][Solution]{\begin{proof}[#1]\let\qed\relax}{\end{proof}}
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
 
+
 % INDUCTION ENVIORNMENT
 
-
-\newtcolorbox{inductionbox}[1]{title={#1},enhanced,sharp corners,
-  coltitle=black,
-  top=0.3in,
-  attach boxed title to top left=
-  {xshift=0em,yshift=-\tcboxedtitleheight},
-  boxed title style={sharp corners, size=small,colback=white}}
 
 \newenvironment{induction}{
 	\vskip 6pt
