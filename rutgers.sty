@@ -1,5 +1,21 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{rutgers}[2021/09/15 Rutgers LaTeX package]
+\ProvidesPackage{rutgers}[2024/01/16 Rutgers LaTeX package]
+
+% required packages
+\RequirePackage[english]{babel}
+\RequirePackage{mathtools}
+\RequirePackage{enumitem}
+\RequirePackage{framed}
+\RequirePackage{amsthm}
+\RequirePackage{thmtools}
+\RequirePackage{amssymb}
+\RequirePackage{amsmath}
+\RequirePackage{verbatim}
+\RequirePackage{lmodern}
+\RequirePackage{tabularx}
+\RequirePackage{hyperref}
+
+
 
 % general commands
 
@@ -73,7 +89,7 @@
 \renewcommand{\vec}[1]{\text{\textbf{#1}}}
 \newcommand{\eps}{\varepsilon}
 \newcommand{\cnj}[1]{\overline{#1}}
-\newcommand{\sth}{\colon}
+\newcommand{\sth}{\mid}
 \newcommand{\cmpl}[1]{#1^\mathrm{C}}
 \newcommand{\prm}[1]{#1^\prime}
 \newcommand{\dprm}[1]{#1^{\prime\prime}}
@@ -116,8 +132,8 @@
 \newcommand{\pf}[1]{#1_\star}
 
 \newcommand{\tfield}[2]{\mathcal{T}^{#1}_{#2}}
-\newcommand{\covd}[1]{\frac{\mathrm{D}#1}{\mathrm{d}t}}
-\newcommand{\covde}{\frac{\mathrm{D}}{\mathrm{d}t}}
+\newcommand{\covd}[1]{\dfrac{\mathrm{D}#1}{\mathrm{d}t}}
+\newcommand{\covde}{\dfrac{\mathrm{D}}{\mathrm{d}t}}
 
 \newcommand{\cirg}{\mathring{g}}
 
@@ -168,10 +184,10 @@
 \newcommand{\danur}{\de{\abs{\nur}}}
 \newcommand{\danui}{\de{\abs{\nui}}}
 
-\newcommand{\dde}[2]{\frac{\mathrm{d} #1}{\mathrm{d} #2}}
-\newcommand{\ddee}[1]{\frac{\mathrm{d}}{\mathrm{d} #1}}
-\newcommand{\pd}[2]{\frac{\partial#1}{\partial#2}}
-\newcommand{\pdd}[1]{\frac{\partial}{\partial#1}}
+\newcommand{\dde}[2]{\dfrac{\mathrm{d} #1}{\mathrm{d} #2}}
+\newcommand{\ddee}[1]{\dfrac{\mathrm{d}}{\mathrm{d} #1}}
+\newcommand{\pd}[2]{\dfrac{\partial#1}{\partial#2}}
+\newcommand{\pdd}[1]{\dfrac{\partial}{\partial#1}}
 
 \newcommand{\cw}{\cnj{w}}
 \newcommand{\cz}{\cnj{z}}
@@ -183,6 +199,7 @@
 \newcommand{\limsupd}[2]{\limsup\limits_{#1 \to #2}}
 
 \newcommand{\maxm}{\operatorname{max}}
+\newcommand{\minm}{\operatorname{min}}
 \newcommand{\str}[1]{#1^{\star}}
 \newcommand{\dstr}[1]{#1^{\star\star}}
 \newcommand{\weakto}{\rightharpoonup}
